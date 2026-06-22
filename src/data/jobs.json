@@ -1,8 +1,8 @@
 [
-  { "id": 1, "title": "Frontend Engineer", "department": "Engineering", "location": "Remote", "type": "Full-time" },
-  { "id": 2, "title": "Campus Ops Manager", "department": "Operations", "location": "Austin, TX", "type": "Full-time" },
-  { "id": 3, "title": "Growth Marketing Lead", "department": "Marketing", "location": "Remote", "type": "Full-time" },
-  { "id": 4, "title": "Product Designer", "department": "Design", "location": "New York, NY", "type": "Full-time" },
-  { "id": 5, "title": "Backend Engineer", "department": "Engineering", "location": "Remote", "type": "Full-time" },
-  { "id": 6, "title": "Community Manager", "department": "Operations", "location": "Remote", "type": "Part-time" }
+  { "id": "1", "title": "Frontend Engineer", "department": "Engineering", "location": "Remote", "type": "Full-time" },
+  { "id": "2", "title": "Campus Ops Manager", "department": "Operations", "location": "Austin, TX", "type": "Full-time" },
+  { "id": "3", "title": "Growth Marketing Lead", "department": "Marketing", "location": "Remote", "type": "Full-time" },
+  { "id": "4", "title": "Product Designer", "department": "Design", "location": "New York, NY", "type": "Full-time" },
+  { "id": "5", "title": "Backend Engineer", "department": "Engineering", "location": "Remote", "type": "Full-time" },
+  { "id": "6", "title": "Community Manager", "department": "Operations", "location": "Remote", "type": "Part-time" }
 ]
