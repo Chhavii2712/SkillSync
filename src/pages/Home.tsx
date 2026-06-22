@@ -4,28 +4,52 @@ import InfiniteMenu from '../components/InfiniteMenu'
 
 const infiniteMenuItems = [
   {
-    image: '/images/1.jpg',
+    image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&h=900&fit=crop',
     link: '/find-hub',
-    title: 'Machine Learning',
-    description: 'Build predictive models.'
+    title: 'Peer Mentoring',
+    description: 'Learn from students ahead of you.'
   },
   {
-    image: '/images/2.jpg',
+    image: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=900&h=900&fit=crop',
     link: '/find-hub',
-    title: 'Web Apps',
-    description: 'Full-stack React & Node.'
+    title: 'Skill Exchange',
+    description: 'Teach what you know, learn what you don\'t.'
   },
   {
-    image: '/images/3.jpg',
+    image: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=900&h=900&fit=crop',
     link: '/find-hub',
-    title: 'Data Science',
-    description: 'Analytics & Viz.'
+    title: 'Cowork & Learn',
+    description: 'Study together in shared spaces.'
   },
   {
-    image: '/images/4.jpg',
+    image: 'https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&h=900&fit=crop',
     link: '/find-hub',
-    title: 'Cybersecurity',
-    description: 'Audits & Pen Testing.'
+    title: 'Workshops',
+    description: 'Hands-on sessions led by peers.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=900&h=900&fit=crop',
+    link: '/find-hub',
+    title: 'Community',
+    description: 'Build your learning network.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=900&h=900&fit=crop',
+    link: '/find-hub',
+    title: 'Team Projects',
+    description: 'Ship real work with peers.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=900&h=900&fit=crop',
+    link: '/find-hub',
+    title: 'Tech Sessions',
+    description: 'Code reviews & pair programming.'
+  },
+  {
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&h=900&fit=crop',
+    link: '/find-hub',
+    title: 'Mentorship',
+    description: 'Get guidance from experienced peers.'
   }
 ];
 
