@@ -1,0 +1,5 @@
+[
+  { "id": 1, "quote": "SkillSync completely changed how I learn. I traded Python for guitar lessons and now I'm doing both professionally.", "name": "Priya K.", "campus": "IIT Delhi", "skill": "Python ↔ Guitar" },
+  { "id": 2, "quote": "I never thought I'd find someone willing to teach me Figma in exchange for my Spanish tutoring. SkillSync made it happen in 48 hours.", "name": "Marcus L.", "campus": "UT Austin", "skill": "Spanish ↔ Figma" },
+  { "id": 3, "quote": "The hub near my campus is my second home. I've made 6 skill exchanges and 12 new friends.", "name": "Aisha N.", "campus": "NYU", "skill": "Photography ↔ Coding" }
+]

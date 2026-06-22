@@ -1,0 +1,6 @@
+[
+  { "id": 1, "title": "Python Programming", "offeredBy": "Arjun M.", "wantsToLearn": "Guitar", "category": "Tech", "level": "Intermediate", "hub": "SkillSync Austin" },
+  { "id": 2, "title": "Graphic Design (Figma)", "offeredBy": "Sara K.", "wantsToLearn": "Spanish", "category": "Design", "level": "Beginner", "hub": "SkillSync NYC" },
+  { "id": 3, "title": "Public Speaking", "offeredBy": "James T.", "wantsToLearn": "Video Editing", "category": "Soft Skills", "level": "Advanced", "hub": "SkillSync Miami" },
+  { "id": 4, "title": "Machine Learning Basics", "offeredBy": "Neha R.", "wantsToLearn": "Piano", "category": "Tech", "level": "Intermediate", "hub": "SkillSync LA" }
+]

@@ -1,0 +1,8 @@
+[
+  { "year": 2021, "title": "Founded", "description": "SkillSync launched as a pilot at two campuses in Texas with 40 students and a big idea.", "image": "https://picsum.photos/300/200?random=21" },
+  { "year": 2022, "title": "First 1,000 Students", "description": "Expanded to 8 campuses and hit our first 1,000-member milestone in under a year.", "image": "https://picsum.photos/300/200?random=22" },
+  { "year": 2023, "title": "National Recognition", "description": "Featured in Forbes and TechCrunch. Named a Top 10 Ed-Tech Startup to watch.", "image": "https://picsum.photos/300/200?random=23" },
+  { "year": 2024, "title": "25 Hubs Launched", "description": "25 campus hubs opened across 12 states with dedicated physical learning spaces.", "image": "https://picsum.photos/300/200?random=24" },
+  { "year": 2025, "title": "10,000 Students", "description": "Crossed 10,000 active students and 2,000 completed skill exchanges.", "image": "https://picsum.photos/300/200?random=25" },
+  { "year": 2026, "title": "Going Global", "description": "International pilot programs launching in India, UK, and Canada.", "image": "https://picsum.photos/300/200?random=26" }
+]
