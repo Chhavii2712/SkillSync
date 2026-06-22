@@ -911,7 +911,19 @@ const defaultItems = [
   }
 ];
 
-export default function InfiniteMenu({ items = [], scale = 1.0 }) {
+interface InfiniteMenuItem {
+  image: string;
+  link: string;
+  title: string;
+  description: string;
+}
+
+interface InfiniteMenuProps {
+  items?: InfiniteMenuItem[];
+  scale?: number;
+}
+
+export default function InfiniteMenu({ items = [], scale = 1.0 }: InfiniteMenuProps) {
   const canvasRef = useRef(null);
   const [activeItem, setActiveItem] = useState(null);
   const [isMoving, setIsMoving] = useState(false);
