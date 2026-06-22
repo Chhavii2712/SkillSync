@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { getHubs } from '../firebase/firestore'
 import ProtectedAction from '../components/ProtectedAction'
+
 const HUB_GRADIENTS = [
   '#FDE68A', // yellow
   '#BFDBFE', // blue
@@ -30,19 +31,6 @@ const STATES = [
   "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
   "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 ]
-
-// Fallback images mapped by state region
-const FALLBACK_IMAGES: Record<string, string> = {
-  California: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=500&fit=crop',
-  Arizona: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=500&fit=crop',
-  Alabama: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=500&fit=crop',
-  Texas: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=500&fit=crop',
-  'New York': 'https://images.unsplash.com/photo-1543269865-cbf427effbad?w=800&h=500&fit=crop',
-  default: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&h=500&fit=crop',
-}
-
-const getHubImage = (hub: Hub) =>
-  hub.image || FALLBACK_IMAGES[hub.state] || FALLBACK_IMAGES.default
 
 // Accent colors cycling for state tags
 const TAG_COLORS = ['bg-yellow-400', 'bg-blue-500', 'bg-orange-500', 'bg-black']
@@ -150,7 +138,7 @@ export default function FindHub() {
           <div className="flex items-center gap-4 flex-wrap">
             <span className="text-xs font-bold uppercase tracking-widest text-gray-400 shrink-0">Filter by state</span>
             <div className="flex flex-wrap gap-2">
-              {STATES.slice(0, 20).map((state, i) => {
+              {STATES.slice(0, 20).map((state) => {
                 const count = hubs.filter(h => h.state === state).length
                 const isActive = activeState === state
                 return (
@@ -182,8 +170,8 @@ export default function FindHub() {
 
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-0 border-t-[2px] border-l-[2px] border-black">
-            {[1, 2, 3].map(i => (
-              <div key={i} className="border-r-[2px] border-b-[2px] border-black animate-pulse">
+            {[1, 2, 3].map((_, idx) => (
+              <div key={idx} className="border-r-[2px] border-b-[2px] border-black animate-pulse">
                 <div className="h-56 bg-gray-100" />
                 <div className="p-6 space-y-3">
                   <div className="h-3 bg-gray-200 rounded w-1/4" />
@@ -206,28 +194,28 @@ export default function FindHub() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t-[2px] border-l-[2px] border-black">
             {filteredHubs.map((hub, idx) => (
               <div key={hub.id} className="border-r-[2px] border-b-[2px] border-black group flex flex-col">
-                {/* Image */}
+                {/* Visual Header Block */}
                 <div className="relative h-52 overflow-hidden border-b-[2px] border-black flex items-center justify-center"
-  style={{ background: HUB_GRADIENTS[idx % HUB_GRADIENTS.length] }}>
-  
-  {/* Big faded campus initial */}
-  <span className="absolute text-[10rem] font-extrabold leading-none select-none pointer-events-none"
-    style={{ opacity: 0.08, color: '#000', top: '-10px', right: '16px' }}>
-    {hub.campus?.charAt(0) || hub.name?.charAt(0)}
-  </span>
+                  style={{ background: HUB_GRADIENTS[idx % HUB_GRADIENTS.length] }}>
+                  
+                  {/* Big faded campus initial */}
+                  <span className="absolute text-[10rem] font-extrabold leading-none select-none pointer-events-none"
+                    style={{ opacity: 0.08, color: '#000', top: '-10px', right: '16px' }}>
+                    {hub.campus?.charAt(0) || hub.name?.charAt(0)}
+                  </span>
 
-  {/* Center content */}
-  <div className="relative z-10 text-center px-6">
-    <p className="text-4xl font-extrabold text-black tracking-tight">{hub.city}</p>
-    <p className="text-sm font-bold uppercase tracking-widest text-black opacity-50 mt-1">{hub.state}</p>
-  </div>
+                  {/* Center content */}
+                  <div className="relative z-10 text-center px-6">
+                    <p className="text-4xl font-extrabold text-black tracking-tight">{hub.city}</p>
+                    <p className="text-sm font-bold uppercase tracking-widest text-black opacity-50 mt-1">{hub.state}</p>
+                  </div>
 
-  {/* State tag */}
-  <span className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-widest px-3 py-1 border-[2px] border-black
-    ${TAG_COLORS[idx % TAG_COLORS.length]} ${idx % TAG_COLORS.length === 3 ? 'text-white' : 'text-black'}`}>
-    {hub.state}
-  </span>
-</div>
+                  {/* State tag */}
+                  <span className={`absolute top-4 left-4 text-xs font-bold uppercase tracking-widest px-3 py-1 border-[2px] border-black
+                    ${TAG_COLORS[idx % TAG_COLORS.length]} ${idx % TAG_COLORS.length === 3 ? 'text-white' : 'text-black'}`}>
+                    {hub.state}
+                  </span>
+                </div>
 
                 {/* Content */}
                 <div className="p-6 flex flex-col flex-1">
