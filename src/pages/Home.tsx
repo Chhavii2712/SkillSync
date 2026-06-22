@@ -31,7 +31,6 @@ const infiniteMenuItems = [
 
 export default function Home() {
   useEffect(() => { document.title = "SkillSync — Peer Learning, Reimagined" }, [])
-  const photoStrip = Array.from({ length: 18 }, (_, i) => `https://picsum.photos/120/80?random=${40 + i}`)
 
   return (
     <div className="flex flex-col min-h-screen">
