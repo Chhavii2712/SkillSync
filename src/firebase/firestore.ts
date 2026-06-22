@@ -38,6 +38,7 @@ export const getMilestones = async () => {
 }
 
 export const getJobs = async () => {
+  if (isDemo) return jobsData
   const snapshot = await getDocs(collection(db, 'jobs'))
   return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
 }
