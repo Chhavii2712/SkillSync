@@ -9,61 +9,59 @@ interface Milestone {
   image: string
 }
 
-// Curated high-quality images capturing digital, distributed peer-to-peer learning
-const RELEVANT_IMAGES = {
-  // 1. Founded: A student solo at their desk on a laptop, starting the initial spark
-  founded: 'https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?w=800&auto=format&fit=crop&q=80',
-  
-  // 2. First 1,000 Students: A student working remotely from a cafe, connected digitally to others
-  thousandStudents: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=800&auto=format&fit=crop&q=80',
-  
-  // 3. National Recognition: A clean representation of tech news, metrics, and digital traction
-  recognition: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&auto=format&fit=crop&q=80',
-  
-  // 4. 25 Hubs Launched: Different students in completely separate locations connected via their screens
-  hubs: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&auto=format&fit=crop&q=80',
-  
-  // 5. 10,000 Students: A rich grid of diverse student faces collaborating together over a remote video network
-  tenThousandStudents: 'https://images.unsplash.com/photo-1614850523459-c2f4c699c52e?w=800&auto=format&fit=crop&q=80',
-  
-  // 6. Going Global: Deep global network connections spanning cities across the world
-  global: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=800&auto=format&fit=crop&q=80',
-  
-  // Resilient fallback asset
-  generic: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80'
-}
-
-// Hardened text scanner using regex to catch numbers regardless of commas or formatting
-function getContextualFallback(title?: string, description?: string): string {
+// Smart priority-based context parsing to avoid keyword short-circuiting
+function getContextualEmoji(title?: string, description?: string): string {
   const safeTitle = title || ''
   const safeDesc = description || ''
   const text = `${safeTitle} ${safeDesc}`.toLowerCase()
   
+  // 1. Going Global Scale (Highest priority)
   if (text.includes('global') || text.includes('india') || text.includes('uk') || text.includes('canada')) {
-    return RELEVANT_IMAGES.global
+    return '🌎'
   }
-  // Matches "10,000", "10000", "10k active", etc.
+  
+  // 2. High Scale Community (10k Students)
   if (text.match(/10[,\s]?000/) || text.includes('10k')) {
-    return RELEVANT_IMAGES.tenThousandStudents
+    return '👥'
   }
-  if (text.includes('hub') || text.includes('campus') || text.includes('physical') || text.includes('spaces')) {
-    return RELEVANT_IMAGES.hubs
+  
+  // 3. Early Traction Velocity (1k Students) - Upgraded to a dynamic growth rocket!
+  if (text.match(/1[,\s]?000/) || text.includes('1k') || text.includes('1,000')) {
+    return '🚀'
   }
-  if (text.includes('recognition') || text.includes('forbes') || text.includes('techcrunch') || text.includes('award')) {
-    return RELEVANT_IMAGES.recognition
-  }
-  // Matches "1,000", "1000", "1k", etc.
-  if (text.match(/1[,\s]?000/) || text.includes('1k')) {
-    return RELEVANT_IMAGES.thousandStudents
-  }
+  
+  // 4. Genesis / Roots (Founded) - Caught before generic descriptive words
   if (text.includes('found') || text.includes('start') || text.includes('pilot') || text.includes('experimental')) {
-    return RELEVANT_IMAGES.founded
+    return '💡'
   }
-  return RELEVANT_IMAGES.generic
+  
+  // 5. Media & Awards
+  if (text.includes('recognition') || text.includes('forbes') || text.includes('techcrunch') || text.includes('award')) {
+    return '📰'
+  }
+  
+  // 6. Nodes & Campus Spaces (Lowest priority fallback)
+  if (text.includes('hub') || text.includes('campus') || text.includes('physical') || text.includes('spaces')) {
+    return '📍'
+  }
+  
+  return '✨'
+}
+
+// Elegant design asset matching engine
+function getEmojiBgClass(emoji: string): string {
+  switch (emoji) {
+    case '🌎': return 'bg-gradient-to-br from-blue-50 to-indigo-100/70 border-blue-100'
+    case '👥': return 'bg-gradient-to-br from-orange-50 to-brand-orange/10 border-orange-100'
+    case '🚀': return 'bg-gradient-to-br from-teal-50 to-emerald-100/60 border-teal-100'
+    case '📍': return 'bg-gradient-to-br from-rose-50 to-red-100/70 border-rose-100'
+    case '📰': return 'bg-gradient-to-br from-slate-50 to-brand-blue/10 border-slate-100'
+    case '💡': return 'bg-gradient-to-br from-amber-50 to-yellow-100/70 border-amber-100'
+    default: return 'bg-gradient-to-br from-purple-50 to-fuchsia-100/70 border-purple-100'
+  }
 }
 
 function MilestoneCard({ m }: { m: Milestone }) {
-  const [imgError, setImgError] = useState(false)
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const cardRef = useRef<HTMLDivElement>(null)
 
@@ -76,16 +74,11 @@ function MilestoneCard({ m }: { m: Milestone }) {
   }
   const resetTilt = () => setTilt({ x: 0, y: 0 })
 
-  const fallbackSrc = getContextualFallback(m.title, m.description)
-  const imageSrc = m.image && m.image.trim() !== '' && !imgError ? m.image : fallbackSrc
+  const emoji = getContextualEmoji(m.title, m.description)
+  const bgClass = getEmojiBgClass(emoji)
 
   return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={resetTilt}
-      style={{ perspective: '1000px' }}
-    >
+    <div ref={cardRef} onMouseMove={handleMouseMove} onMouseLeave={resetTilt} style={{ perspective: '1000px' }}>
       <div
         className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-xl transition-shadow duration-300 text-left"
         style={{
@@ -98,13 +91,9 @@ function MilestoneCard({ m }: { m: Milestone }) {
           {m.year}
         </span>
 
-        <div className="w-full h-48 rounded-lg mb-4 overflow-hidden bg-gray-50 border border-gray-100">
-          <img
-            src={imageSrc}
-            alt={m.title}
-            onError={() => setImgError(true)}
-            className="w-full h-full object-cover"
-          />
+        {/* Dynamic customized glassmorphic-vibe container */}
+        <div className={`w-full h-32 rounded-lg mb-4 flex items-center justify-center border text-5xl select-none shadow-inner drop-shadow-sm transition-all duration-300 ${bgClass}`}>
+          {emoji}
         </div>
 
         <h3 className="text-xl font-bold text-gray-900 mb-2">{m.title}</h3>
@@ -126,44 +115,52 @@ export default function History() {
 
   useEffect(() => {
     document.title = 'History — SkillSync'
+    
+    // Performance Layer: Pull from local storage first
+    const cachedData = localStorage.getItem('skillsync_history_cache')
+    if (cachedData) {
+      try {
+        const parsed = JSON.parse(cachedData)
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          setMilestones(parsed)
+          setLoading(false)
+        }
+      } catch (err) {
+        console.error('Cache read error:', err)
+      }
+    }
+
+    // Anti-hang fallback strategy
+    const fallbackTimeout = setTimeout(() => {
+      setLoading(false)
+    }, 2000)
+
     const fetchMilestones = async () => {
       try {
         const data = await getMilestones() as Milestone[]
         
-        // Deduplicate cards sharing the exact same text contents
+        // Data cleaning scrubber
         const uniqueData = data.reduce((acc: Milestone[], current) => {
           const isDuplicate = acc.some(
             (m) => m.title?.trim().toLowerCase() === current.title?.trim().toLowerCase()
           )
-          if (!isDuplicate) {
-            acc.push(current)
-          }
+          if (!isDuplicate) acc.push(current)
           return acc
         }, [])
 
         const sortedData = uniqueData.sort((a, b) => a.year - b.year)
-
-        // ── IMAGE PRELOAD ENGINE ──────────────────────────────────────────
-        // Downloads and caches images in browser memory before showing timeline
-        await Promise.all(
-          sortedData.map((m) => {
-            return new Promise((resolve) => {
-              const img = new Image()
-              img.src = m.image && m.image.trim() !== '' ? m.image : getContextualFallback(m.title, m.description)
-              img.onload = resolve
-              img.onerror = resolve // resolve anyway to keep timeline responsive
-            })
-          })
-        )
-        
+        localStorage.setItem('skillsync_history_cache', JSON.stringify(sortedData))
         setMilestones(sortedData)
       } catch (e) {
-        console.error(e)
+        console.error('Firestore fetch failed:', e)
       } finally {
+        clearTimeout(fallbackTimeout)
         setLoading(false)
       }
     }
+
     fetchMilestones()
+    return () => clearTimeout(fallbackTimeout)
   }, [])
 
   useEffect(() => {
@@ -193,11 +190,7 @@ export default function History() {
         entries.forEach((entry) => {
           const id = entry.target.getAttribute('data-id')
           if (!id) return
-
-          if (entry.isIntersecting) {
-            setActiveId(id)
-          }
-
+          if (entry.isIntersecting) setActiveId(id)
           if (entry.boundingClientRect.top < window.innerHeight - 80) {
             setRevealedIds((prev) => {
               if (prev.has(id)) return prev
@@ -215,20 +208,16 @@ export default function History() {
     return () => observer.disconnect()
   }, [milestones])
 
-  const setRowRef = useCallback(
-    (id: string) => (node: HTMLDivElement | null) => {
-      if (node) rowRefs.current.set(id, node)
-      else rowRefs.current.delete(id)
-    },
-    []
-  )
+  const setRowRef = useCallback((id: string) => (node: HTMLDivElement | null) => {
+    if (node) rowRefs.current.set(id, node)
+    else rowRefs.current.delete(id)
+  }, [])
 
-  const yearSpan =
-    milestones.length > 0 ? milestones[milestones.length - 1].year - milestones[0].year : 0
+  const yearSpan = milestones.length > 0 ? milestones[milestones.length - 1].year - milestones[0].year : 0
 
   return (
     <div className="min-h-screen bg-gray-50 pb-24">
-      {/* Hero Section */}
+      {/* Hero Header */}
       <section className="bg-white py-16 text-center border-b border-gray-200">
         <div className="max-w-3xl mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
@@ -238,7 +227,7 @@ export default function History() {
             Connecting students across campus borders through distributed peer exchange.
           </p>
 
-          {!loading && milestones.length > 0 && (
+          {milestones.length > 0 && (
             <div className="flex justify-center gap-10 sm:gap-16">
               <div>
                 <div className="text-3xl font-extrabold text-brand-blue">{milestones[0].year}</div>
@@ -259,25 +248,21 @@ export default function History() {
         </div>
       </section>
 
-      {/* Timeline Section */}
+      {/* Axis Timeline Array */}
       <section ref={containerRef} className="max-w-5xl mx-auto px-4 py-20 relative">
         <div className="absolute left-1/2 -translate-x-1/2 w-0.5 bg-gray-200 top-0 bottom-0 hidden md:block" />
-
         <div
           className="absolute left-1/2 -translate-x-1/2 w-0.5 bg-gradient-to-b from-brand-blue to-brand-orange top-0 hidden md:block"
-          style={{
-            height: `${progress}%`,
-            transition: 'height 150ms ease-out',
-          }}
+          style={{ height: `${progress}%`, transition: 'height 150ms ease-out' }}
         />
 
-        {loading ? (
+        {loading && milestones.length === 0 ? (
           <div className="space-y-12">
             {[1, 2, 3].map((i) => (
               <div key={i} className="flex justify-center animate-pulse">
                 <div className="bg-white w-full max-w-md p-6 rounded-xl shadow-sm border border-gray-100">
                   <div className="w-16 h-8 bg-gray-200 rounded-full mb-4" />
-                  <div className="w-full h-48 bg-gray-200 rounded-lg mb-4" />
+                  <div className="w-full h-32 bg-gray-200 rounded-lg mb-4" />
                   <div className="w-3/4 h-6 bg-gray-200 mb-2" />
                   <div className="w-full h-4 bg-gray-200" />
                 </div>
@@ -292,18 +277,9 @@ export default function History() {
               const isRevealed = revealedIds.has(m.id)
 
               return (
-                <div
-                  key={m.id}
-                  ref={setRowRef(m.id)}
-                  data-id={m.id}
-                  className="relative flex flex-col md:flex-row items-center gap-0 w-full"
-                >
+                <div key={m.id} ref={setRowRef(m.id)} data-id={m.id} className="relative flex flex-col md:flex-row items-center gap-0 w-full">
                   {isLeft ? (
-                    <div
-                      className={`w-full md:w-5/12 md:pr-8 transition-all duration-700 ease-out ${
-                        isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                      }`}
-                    >
+                    <div className={`w-full md:w-5/12 md:pr-8 transition-all duration-700 ease-out ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                       <MilestoneCard m={m} />
                     </div>
                   ) : (
@@ -312,24 +288,14 @@ export default function History() {
 
                   <div className="md:w-2/12 flex justify-center items-center py-4 md:py-0">
                     <div className="relative hidden md:flex items-center justify-center">
-                      <span
-                        className={`block rounded-full border-4 border-white shadow-md transition-all duration-300 ${
-                          isActive ? 'w-5 h-5 bg-brand-orange' : 'w-4 h-4 bg-brand-blue'
-                        }`}
-                      />
-                      {isActive && (
-                        <span className="absolute inset-0 rounded-full bg-brand-orange/50 animate-ping" />
-                      )}
+                      <span className={`block rounded-full border-4 border-white shadow-md transition-all duration-300 ${isActive ? 'w-5 h-5 bg-brand-orange' : 'w-4 h-4 bg-brand-blue'}`} />
+                      {isActive && <span className="absolute inset-0 rounded-full bg-brand-orange/50 animate-ping" />}
                     </div>
                     <span className="md:hidden block w-3 h-3 rounded-full bg-brand-blue border-2 border-white shadow" />
                   </div>
 
                   {!isLeft ? (
-                    <div
-                      className={`w-full md:w-5/12 md:pl-8 transition-all duration-700 ease-out ${
-                        isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                      }`}
-                    >
+                    <div className={`w-full md:w-5/12 md:pl-8 transition-all duration-700 ease-out ${isRevealed ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                       <MilestoneCard m={m} />
                     </div>
                   ) : (
