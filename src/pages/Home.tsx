@@ -1,5 +1,33 @@
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
+import InfiniteMenu from '../components/InfiniteMenu'
+
+const infiniteMenuItems = [
+  {
+    image: '/images/1.jpg',
+    link: '/find-hub',
+    title: 'Machine Learning',
+    description: 'Build predictive models.'
+  },
+  {
+    image: '/images/2.jpg',
+    link: '/find-hub',
+    title: 'Web Apps',
+    description: 'Full-stack React & Node.'
+  },
+  {
+    image: '/images/3.jpg',
+    link: '/find-hub',
+    title: 'Data Science',
+    description: 'Analytics & Viz.'
+  },
+  {
+    image: '/images/4.jpg',
+    link: '/find-hub',
+    title: 'Cybersecurity',
+    description: 'Audits & Pen Testing.'
+  }
+];
 
 export default function Home() {
   useEffect(() => { document.title = "SkillSync — Peer Learning, Reimagined" }, [])
@@ -7,196 +35,204 @@ export default function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-white py-16 md:py-24 overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-blue/5 rounded-bl-full z-0"></div>
-        <div className="absolute top-32 right-32 w-32 h-32 bg-brand-yellow/10 rounded-full z-0"></div>
+      {/* Brutalist Hero Section */}
+      <section className="bg-white border-b-[2px] border-black overflow-hidden flex flex-col">
+        {/* Top Strip (Hero Image) */}
+        <div className="w-full border-b-[2px] border-black">
+          <img 
+            src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1600&h=400&q=80" 
+            alt="Students collaborating" 
+            className="w-full h-[300px] md:h-[400px] object-cover" 
+          />
+        </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <span className="inline-block bg-blue-50 text-brand-blue font-semibold px-4 py-1.5 rounded-full text-sm mb-6 border border-blue-100 shadow-sm">
-                🎓 Student Skill Exchange Platform
-              </span>
-              <h1 className="text-5xl md:text-[56px] font-extrabold leading-[1.1] text-gray-900 mb-6 tracking-tight">
-                Learn What<br/>Others Don't<br/>Teach.
-              </h1>
-              <p className="text-lg text-gray-600 mb-8 max-w-lg leading-relaxed">
-                SkillSync connects students across campuses to exchange skills peer-to-peer. You teach what you know. You learn what you don't. Free, forever.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link to="/find-hub" className="bg-brand-blue text-white font-medium px-6 py-3 rounded-md text-center hover:bg-blue-700 transition shadow-sm">
-                  Start Exchanging &rarr;
-                </Link>
-                <Link to="/find-hub" className="border border-gray-300 text-gray-700 font-medium px-6 py-3 rounded-md text-center hover:bg-gray-50 transition">
-                  Find a Hub Near You
-                </Link>
-              </div>
-            </div>
-            <div className="relative">
-              <img src="https://picsum.photos/600/500?random=1" alt="Students collaborating" className="rounded-xl shadow-2xl" />
-            </div>
+        {/* Bottom Split (3 Columns) */}
+        <div className="flex flex-col md:flex-row w-full max-w-[1600px] mx-auto min-h-[500px]">
+          {/* Left Grid Pattern */}
+          <div className="hidden lg:grid grid-cols-4 grid-rows-8 w-[240px] border-r-[2px] border-black shrink-0 relative overflow-hidden">
+            {/* Draw grid lines via borders on empty divs */}
+            {Array.from({ length: 32 }).map((_, i) => {
+              let bg = "";
+              if (i === 1) bg = "bg-blue-500";
+              if (i === 14) bg = "bg-yellow-400";
+              if (i === 16) bg = "bg-orange-500";
+              return (
+                <div key={i} className={`border-r-[1px] border-b-[1px] border-black ${bg}`}></div>
+              )
+            })}
+          </div>
+
+          {/* Center Content */}
+          <div className="flex-1 flex flex-col justify-center items-center p-12 lg:p-24 border-r-[2px] border-black text-center">
+            <h1 className="text-5xl md:text-6xl font-serif text-black mb-8 leading-[1.1]">
+              Learn What Classes Don't<br/>Teach.
+            </h1>
+            <p className="text-lg text-black font-medium mb-10 max-w-md">
+              SkillSync connects university students to swap code, design, creative arts, and academic mentorship. Peer-to-peer, 100% free.
+            </p>
+            <Link to="/find-hub" className="border-[2px] border-black text-black font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition">
+              Explore active hubs
+            </Link>
+          </div>
+
+          {/* Right Component Box (InfiniteMenu) */}
+          <div className="w-full md:w-[400px] lg:w-[500px] h-[500px] md:h-auto shrink-0 bg-white relative">
+            <InfiniteMenu items={infiniteMenuItems} scale={1.0} />
           </div>
         </div>
-      </section>
 
-      {/* Stats Banner */}
-      <section className="bg-gray-50 border-y border-gray-100 py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-200">
-            <div className="py-4 md:py-0">
-              <div className="text-4xl font-extrabold text-brand-blue mb-2">12,400+</div>
-              <div className="text-gray-500 font-medium uppercase tracking-wider text-sm">Students</div>
+        {/* Blue Bar Divider */}
+        <div className="w-full h-16 md:h-24 bg-blue-500 border-t-[2px] border-b-[2px] border-black"></div>
+
+        {/* Room To Grow Header */}
+        <div className="w-full max-w-[1600px] mx-auto p-12 lg:p-24 border-b-[2px] border-black bg-white">
+          <h2 className="text-4xl md:text-6xl font-serif text-black leading-tight max-w-3xl">
+            Every Student Deserves<br/>Room To Grow Together.
+          </h2>
+        </div>
+
+        {/* Features List */}
+        <div className="w-full max-w-[1600px] mx-auto bg-white">
+          {/* Item 1 */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-8 lg:p-12 border-b-[2px] border-black">
+            <div className="flex-1 pr-8">
+              <h3 className="text-2xl font-bold mb-4">Peer Mentoring</h3>
+              <p className="text-gray-700 max-w-md">Learn from peers who have already mastered the tools and courses you want to learn. No rigid lectures, just collaborative growth.</p>
             </div>
-            <div className="py-4 md:py-0">
-              <div className="text-4xl font-extrabold text-brand-blue mb-2">3,200</div>
-              <div className="text-gray-500 font-medium uppercase tracking-wider text-sm">Active Exchanges</div>
-            </div>
-            <div className="py-4 md:py-0">
-              <div className="text-4xl font-extrabold text-brand-blue mb-2">48</div>
-              <div className="text-gray-500 font-medium uppercase tracking-wider text-sm">Campus Hubs</div>
+            <div className="mt-6 md:mt-0">
+              <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=300&h=150&q=80" alt="Peer mentoring" className="w-[300px] h-[150px] object-cover border-[2px] border-black" />
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Every Student Deserves Room To Grow Together.</h2>
-          <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">SkillSync is the platform where students level up by teaching and learning from each other.</p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-white border border-gray-100 rounded-xl p-8 shadow-sm hover:shadow-md transition hover:-translate-y-1">
-              <div className="text-4xl mb-4">👥</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Peer Mentoring</h3>
-              <p className="text-gray-600">Get matched with students who've already mastered what you're trying to learn.</p>
+          {/* Item 2 */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-8 lg:p-12 border-b-[2px] border-black">
+            <div className="flex-1 pr-8">
+              <h3 className="text-2xl font-bold mb-4">Collaborative Spaces</h3>
+              <p className="text-gray-700 max-w-md">Swap skills in specialized university chapters, group study rooms, and virtual hackathons designed for hands-on, micro-learning.</p>
             </div>
-            <div className="bg-white border border-gray-100 rounded-xl p-8 shadow-sm hover:shadow-md transition hover:-translate-y-1">
-              <div className="text-4xl mb-4">🏛</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Collaborative Spaces</h3>
-              <p className="text-gray-600">Meet at your local SkillSync hub — real spaces designed for focused skill exchange.</p>
-            </div>
-            <div className="bg-white border border-gray-100 rounded-xl p-8 shadow-sm hover:shadow-md transition hover:-translate-y-1">
-              <div className="text-4xl mb-4">🔄</div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">100% Free Exchange</h3>
-              <p className="text-gray-600">No money changes hands. You trade time and knowledge, nothing else.</p>
+            <div className="mt-6 md:mt-0">
+              <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=300&h=150&q=80" alt="Collaborative spaces" className="w-[300px] h-[150px] object-cover border-[2px] border-black" />
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Quote Section */}
-      <section className="bg-blue-50 py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <blockquote className="text-2xl md:text-3xl font-medium text-gray-900 italic mb-8 border-l-4 border-brand-blue pl-6 text-left relative">
-            "SkillSync has completely changed how I learn. I traded my Python skills for guitar lessons and now I'm doing both professionally."
-          </blockquote>
-          <div className="text-left pl-6 font-semibold text-gray-700 mb-12">— Priya K., IIT Delhi</div>
-          <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Students Are Leveling Up Together On SkillSync</h2>
-          <p className="text-gray-600">Join 12,400+ students already exchanging skills</p>
-        </div>
-      </section>
-
-      {/* Core Pillars */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12">The Core Pillars Of Skill-Sharing</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-            <div className="group rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition">
-              <img src="https://picsum.photos/400/250?random=31" alt="Problem Solving" className="w-full h-48 object-cover group-hover:scale-105 transition duration-500" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Problem Solving Together</h3>
-                <p className="text-gray-600">Learn faster when you teach. SkillSync's exchange model forces both sides to think deeply.</p>
-              </div>
+          {/* Item 3 */}
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center p-8 lg:p-12 border-b-[2px] border-black">
+            <div className="flex-1 pr-8">
+              <h3 className="text-2xl font-bold mb-4">100% Free Exchange</h3>
+              <p className="text-gray-700 max-w-md">No tuition, no subscription fees. You trade your knowledge: teach Python for 2 hours, get mentored in UI/UX Design for 2 hours.</p>
             </div>
-            <div className="group rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition">
-              <img src="https://picsum.photos/400/250?random=32" alt="Reciprocal Collaboration" className="w-full h-48 object-cover group-hover:scale-105 transition duration-500" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Reciprocal Collaboration</h3>
-                <p className="text-gray-600">Every exchange is a two-way street. Both students walk away with something new.</p>
-              </div>
-            </div>
-            <div className="group rounded-xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition">
-              <img src="https://picsum.photos/400/250?random=33" alt="Technology Help" className="w-full h-48 object-cover group-hover:scale-105 transition duration-500" />
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Technology Help</h3>
-                <p className="text-gray-600">From coding to design, tech skills are the most exchanged on SkillSync.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Photo Strip */}
-      <div className="flex overflow-x-hidden relative w-full h-[80px]">
-        <div className="flex animate-marquee whitespace-nowrap">
-          {photoStrip.map((src, i) => (
-            <img key={i} src={src} alt="Student" className="w-[120px] h-[80px] object-cover grayscale hover:grayscale-0 transition inline-block" />
-          ))}
-          {photoStrip.map((src, i) => (
-            <img key={`dup-${i}`} src={src} alt="Student" className="w-[120px] h-[80px] object-cover grayscale hover:grayscale-0 transition inline-block" />
-          ))}
-        </div>
-      </div>
-
-      {/* Mission Split */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">100% Student-Driven Collaborative Growth. This Is What Learning Should Feel Like.</h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                SkillSync was built by students, for students. We believe the best teachers aren't always in classrooms — sometimes they're sitting right next to you.
-              </p>
-            </div>
-            <div>
-              <img src="https://picsum.photos/600/400?random=35" alt="Mission" className="rounded-xl shadow-lg w-full" />
+            <div className="mt-6 md:mt-0">
+              <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=300&h=150&q=80" alt="Free exchange" className="w-[300px] h-[150px] object-cover border-[2px] border-black" />
             </div>
           </div>
         </div>
       </section>
 
       {/* Learn By Teaching Split */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="order-2 md:order-1">
-              <img src="https://picsum.photos/600/400?random=36" alt="Learn By Teaching" className="rounded-xl shadow-lg w-full" />
+      <section className="w-full max-w-[1600px] mx-auto border-b-[2px] border-black flex flex-col md:flex-row bg-white">
+        <div className="w-full md:w-1/2 p-12 lg:p-24 border-b-[2px] md:border-b-0 md:border-r-[2px] border-black flex flex-col justify-center items-start">
+          <h2 className="text-4xl md:text-5xl font-serif text-black mb-6 leading-[1.2]">
+            Learn By Teaching.<br/>Share To Grow.
+          </h2>
+          <p className="text-gray-700 mb-10 max-w-md">
+            Our exchange platform thrives on a simple idea: teaching others is the absolute best way to master a skill yourself. Tap into a vibrant community.
+          </p>
+          <button className="border-[2px] border-black text-black font-bold px-8 py-3 rounded-full hover:bg-gray-100 transition">
+            Our exchange model
+          </button>
+        </div>
+        <div className="w-full md:w-1/2 p-6 lg:p-12 flex justify-center items-center">
+          <img 
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&h=600&q=80" 
+            alt="Students studying" 
+            className="w-full h-auto object-cover border-[2px] border-black" 
+          />
+        </div>
+      </section>
+
+      {/* Bottom CTA Grid */}
+      <section className="w-full max-w-[1600px] mx-auto border-b-[2px] border-black flex flex-col bg-white">
+        <div className="flex flex-col md:flex-row w-full min-h-[400px]">
+          {/* Left Visuals */}
+          <div className="flex w-full md:w-[240px] shrink-0 border-b-[2px] md:border-b-0 md:border-r-[2px] border-black">
+            <div className="w-8 md:w-12 bg-yellow-400 border-r-[2px] border-black h-full"></div>
+            <div className="flex-1 relative overflow-hidden">
+              {/* Diagonal line to simulate wireframe image placeholder */}
+              <div className="absolute top-0 left-0 w-[200%] h-[200%] border-t-[2px] border-black origin-top-left rotate-[65deg]"></div>
             </div>
-            <div className="order-1 md:order-2">
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">Learn By Teaching. Share To Grow.</h2>
-              <p className="text-lg text-gray-600 leading-relaxed mb-8">
-                When you teach a skill, you master it. SkillSync's exchange model makes sure every interaction is a learning moment for both parties.
-              </p>
-              <Link to="/find-hub" className="bg-brand-blue text-white font-medium px-6 py-3 rounded-md inline-block hover:bg-blue-700 transition">
-                Browse Skills &rarr;
-              </Link>
+          </div>
+
+          {/* Center Content */}
+          <div className="flex-1 flex flex-col justify-center items-center p-12 lg:p-24 border-b-[2px] md:border-b-0 md:border-r-[2px] border-black text-center">
+            <h2 className="text-4xl md:text-5xl font-serif text-black mb-10 leading-[1.2]">
+              Ready To Sync?<br/>Your Skill Exchange Journey<br/>Starts Here.
+            </h2>
+            <button 
+              className="bg-black text-white px-10 py-4 rounded-full text-lg font-bold hover:bg-gray-800 transition"
+              onClick={() => {}}
+            >
+              Join the Exchange
+            </button>
+          </div>
+
+          {/* Right Grid */}
+          <div className="hidden lg:grid grid-cols-4 grid-rows-6 w-[240px] shrink-0">
+            {Array.from({ length: 24 }).map((_, i) => {
+              let bg = "";
+              if (i === 8) bg = "bg-yellow-400";
+              if (i === 17) bg = "bg-orange-500";
+              if (i === 23) bg = "bg-blue-500";
+              return (
+                <div key={i} className={`border-r-[1px] border-b-[1px] border-black ${bg}`}></div>
+              )
+            })}
+          </div>
+        </div>
+        
+        {/* Thick Blue Bottom Bar */}
+        <div className="w-full h-16 bg-blue-500 border-t-[2px] border-black"></div>
+      </section>
+
+      {/* Footer */}
+      <footer className="w-full max-w-[1600px] mx-auto p-12 lg:p-16 bg-white">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div className="col-span-1 md:col-span-2">
+            <h2 className="text-4xl font-extrabold text-black tracking-tight mb-8">SkillSync</h2>
+            <div className="text-xs text-gray-500 mt-12 md:mt-24">
+              ©2026 SkillSync. All Rights Reserved.
+            </div>
+          </div>
+          <div>
+            <ul className="space-y-3 text-sm font-bold text-black">
+              <li><Link to="/about" className="hover:underline">Company</Link></li>
+              <li><Link to="/about" className="hover:underline">How It Works</Link></li>
+              <li><Link to="/about" className="hover:underline">Tech & Coding</Link></li>
+              <li><Link to="/about" className="hover:underline">Design & Creative</Link></li>
+              <li><Link to="/about" className="hover:underline">Academic & Business</Link></li>
+              <li><Link to="/find-hub" className="hover:underline">Find a Hub</Link></li>
+              <li><Link to="/about" className="hover:underline">Token System</Link></li>
+              <li><Link to="/about" className="hover:underline">Space Partnership</Link></li>
+              <li><Link to="/careers" className="hover:underline">Ambassador Program</Link></li>
+              <li><Link to="/about" className="hover:underline">Community Blog</Link></li>
+              <li><Link to="/careers" className="hover:underline">Careers</Link></li>
+            </ul>
+          </div>
+          <div>
+            <ul className="space-y-3 text-sm font-bold text-black mb-12">
+              <li><Link to="/about" className="hover:underline">Join the Exchange</Link></li>
+              <li><Link to="/about" className="hover:underline">Contact</Link></li>
+              <li><Link to="/about" className="hover:underline">Login</Link></li>
+            </ul>
+            <div className="mt-auto">
+              <a href="mailto:support@skillsync.org" className="text-xs font-bold hover:underline block mb-6">Support@skillsync.org</a>
+              <ul className="space-y-1 text-xs text-gray-500">
+                <li><Link to="/about" className="hover:underline">Privacy Policy</Link></li>
+                <li><Link to="/about" className="hover:underline">Terms of Use</Link></li>
+                <li><Link to="/about" className="hover:underline">Standards of Ethical Conduct</Link></li>
+                <li><Link to="/about" className="hover:underline">Legal Center</Link></li>
+              </ul>
             </div>
           </div>
         </div>
-      </section>
-
-      {/* CTA Banner */}
-      <section className="bg-gradient-to-r from-brand-orange to-brand-blue py-16">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-8">Ready To Sync? Start Your Skill Exchange Journey — Apply Here.</h2>
-          <Link to="/find-hub" className="bg-white text-brand-blue font-bold px-8 py-3 rounded-md inline-block hover:bg-gray-100 transition shadow-lg">
-            Apply Now
-          </Link>
-        </div>
-      </section>
-
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-          width: max-content;
-        }
-      `}</style>
+      </footer>
     </div>
   )
 }

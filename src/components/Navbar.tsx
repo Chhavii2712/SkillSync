@@ -27,89 +27,75 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`sticky top-0 z-50 bg-white transition-shadow ${isScrolled ? 'shadow-md border-b border-gray-200' : ''}`}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            {/* Logo */}
-            <Link to="/" className="flex items-center text-brand-blue font-bold text-xl">
-              <span className="mr-1">⚡</span> SkillSync
-            </Link>
-
-            {/* Desktop Nav */}
-            <div className="hidden md:flex space-x-8">
-              {navLinks.map(link => (
-                <Link 
-                  key={link.path} 
-                  to={link.path}
-                  className={`flex items-center h-full text-sm font-medium transition ${
-                    location.pathname === link.path 
-                      ? 'text-brand-blue border-b-2 border-brand-blue' 
-                      : 'text-gray-600 hover:text-brand-blue'
-                  }`}
-                  style={location.pathname === link.path ? { marginBottom: '-2px' } : {}}
-                >
-                  {link.name}
+      <nav className={`sticky top-0 z-50 bg-white transition-shadow border-b-[2px] border-black ${isScrolled ? 'shadow-md' : ''}`}>
+        <div className="max-w-[1600px] mx-auto w-full">
+          <div className="flex justify-between items-stretch h-[72px]">
+            {/* Left Nav Grid section */}
+            <div className="flex h-full border-r-[2px] border-black">
+              {/* Logo Box */}
+              <div className="flex items-center px-6 md:px-10 border-r-[2px] border-black">
+                <Link to="/" className="text-black font-extrabold text-xl tracking-tight">
+                  SkillSync
                 </Link>
-              ))}
+              </div>
+
+              {/* Decorative Grid Box */}
+              <div className="hidden md:grid grid-cols-2 grid-rows-2 w-[72px] h-full border-r-[2px] border-black">
+                <div className="border-r border-b border-black"></div>
+                <div className="bg-yellow-400 border-b border-black"></div>
+                <div className="bg-orange-500 border-r border-black"></div>
+                <div className="bg-blue-500"></div>
+              </div>
+
+              {/* Menu Icon Box */}
+              <div className="flex items-center justify-center w-[72px] h-full cursor-pointer hover:bg-gray-50" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+                <div className="w-6 border-b-2 border-black"></div>
+              </div>
             </div>
 
             {/* Auth Actions */}
-            <div className="hidden md:flex items-center space-x-4">
+            <div className="flex items-center px-6 md:px-10 space-x-6">
               {user ? (
                 <>
-                  <span className="text-sm font-medium text-gray-700">{user.displayName || user.email}</span>
-                  <button onClick={logout} className="text-sm text-gray-600 hover:text-red-600">Logout</button>
+                  <span className="text-sm font-bold text-black">{user.displayName || user.email}</span>
+                  <button onClick={logout} className="text-sm font-bold text-black hover:text-red-600 uppercase tracking-wide">Logout</button>
                 </>
               ) : (
                 <>
-                  <button onClick={() => setIsAuthModalOpen(true)} className="text-sm font-medium text-gray-600 hover:text-brand-blue">
-                    Log In
+                  <button onClick={() => setIsAuthModalOpen(true)} className="text-sm font-bold text-black hover:text-gray-600 uppercase tracking-wide">
+                    Login
                   </button>
                   <button 
                     onClick={() => setIsAuthModalOpen(true)}
-                    className="bg-brand-blue text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 transition"
+                    className="bg-black text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition uppercase tracking-wide"
                   >
-                    Apply Now
+                    Join the Exchange
                   </button>
                 </>
               )}
             </div>
-
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex items-center">
-              <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-600 text-2xl focus:outline-none">
-                ☰
-              </button>
-            </div>
           </div>
         </div>
 
-        {/* Mobile Nav */}
+        {/* Desktop Mega Menu Overlay (Simplified for now) */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t bg-white absolute w-full shadow-md">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {navLinks.map(link => (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  className={`block px-3 py-2 rounded-md text-base font-medium ${
-                    location.pathname === link.path ? 'text-brand-blue bg-blue-50' : 'text-gray-700 hover:text-brand-blue hover:bg-gray-50'
-                  }`}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              <div className="border-t my-2 pt-2">
-                {user ? (
-                  <button onClick={() => { logout(); setIsMobileMenuOpen(false); }} className="block w-full text-left px-3 py-2 text-base font-medium text-red-600 hover:bg-red-50 rounded-md">
-                    Logout
-                  </button>
-                ) : (
-                  <button onClick={() => { setIsMobileMenuOpen(false); setIsAuthModalOpen(true); }} className="block w-full text-left px-3 py-2 text-base font-medium text-brand-blue hover:bg-blue-50 rounded-md">
-                    Log In / Apply
-                  </button>
-                )}
+          <div className="absolute top-[72px] left-0 w-full bg-white border-b-[2px] border-black shadow-xl z-40">
+            <div className="grid grid-cols-1 md:grid-cols-4 max-w-[1600px] mx-auto">
+              <div className="col-span-1 border-r-[2px] border-black p-8 hidden md:block">
+                <h3 className="text-2xl font-bold mb-4">Navigate</h3>
+                <p className="text-gray-500">Explore the SkillSync platform.</p>
+              </div>
+              <div className="col-span-3 grid grid-cols-2 md:grid-cols-3">
+                {navLinks.map((link, idx) => (
+                  <Link
+                    key={link.path}
+                    to={link.path}
+                    className={`block p-6 md:p-8 text-xl font-bold hover:bg-gray-50 border-b-[2px] border-black md:border-b-0 ${idx % 3 !== 2 ? 'md:border-r-[2px] border-black' : ''} ${location.pathname === link.path ? 'bg-gray-100' : ''}`}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>
