@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { AuthProvider } from './context/AuthContext'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import CustomCursor from './components/CustomCursor'
 import Home from './pages/Home'
 import FindHub from './pages/FindHub'
 import About from './pages/About'
@@ -13,6 +14,7 @@ export default function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <CustomCursor />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
