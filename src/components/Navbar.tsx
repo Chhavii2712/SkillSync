@@ -30,6 +30,7 @@ export default function Navbar() {
       <nav className={`sticky top-0 z-50 bg-white transition-shadow border-b-[2px] border-black ${isScrolled ? 'shadow-md' : ''}`}>
         <div className="max-w-[1600px] mx-auto w-full">
           <div className="flex justify-between items-stretch h-[72px]">
+
             {/* Left Nav Grid section */}
             <div className="flex h-full border-r-[2px] border-black">
               {/* Logo Box */}
@@ -48,7 +49,10 @@ export default function Navbar() {
               </div>
 
               {/* Menu Icon Box */}
-              <div className="flex items-center justify-center w-[72px] h-full cursor-pointer hover:bg-gray-50" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              <div
+                className="flex items-center justify-center w-[72px] h-full cursor-pointer hover:bg-gray-50"
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              >
                 <div className="w-6 border-b-2 border-black"></div>
               </div>
             </div>
@@ -56,16 +60,34 @@ export default function Navbar() {
             {/* Auth Actions */}
             <div className="flex items-center px-6 md:px-10 space-x-6">
               {user ? (
-                <>
-                  <span className="text-sm font-bold text-black">{user.displayName || user.email}</span>
-                  <button onClick={logout} className="text-sm font-bold text-black hover:text-red-600 uppercase tracking-wide">Logout</button>
-                </>
+                /* ── Profile avatar with hover dropdown ── */
+                <div className="relative group">
+                  <div className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center font-black text-sm uppercase cursor-pointer border-[2px] border-black select-none">
+                    {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+                  </div>
+                  {/* Dropdown */}
+                  <div className="absolute right-0 top-full mt-2 w-48 bg-white border-[2px] border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity z-50">
+                    <div className="px-4 py-3 border-b-[2px] border-black">
+                      <p className="text-xs font-black uppercase tracking-widest text-gray-400">Signed in as</p>
+                      <p className="text-sm font-bold text-black truncate">{user.displayName || user.email}</p>
+                    </div>
+                    <button
+                      onClick={logout}
+                      className="w-full text-left px-4 py-3 text-sm font-bold text-black hover:bg-red-50 hover:text-red-600 uppercase tracking-wide transition"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
               ) : (
                 <>
-                  <button onClick={() => setIsAuthModalOpen(true)} className="text-sm font-bold text-black hover:text-gray-600 uppercase tracking-wide">
+                  <button
+                    onClick={() => setIsAuthModalOpen(true)}
+                    className="text-sm font-bold text-black hover:text-gray-600 uppercase tracking-wide"
+                  >
                     Login
                   </button>
-                  <button 
+                  <button
                     onClick={() => setIsAuthModalOpen(true)}
                     className="bg-black text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-gray-800 transition uppercase tracking-wide"
                   >
@@ -77,7 +99,7 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Desktop Mega Menu Overlay (Simplified for now) */}
+        {/* Mega Menu */}
         {isMobileMenuOpen && (
           <div className="absolute top-[72px] left-0 w-full bg-white border-b-[2px] border-black shadow-xl z-40">
             <div className="grid grid-cols-1 md:grid-cols-4 max-w-[1600px] mx-auto">

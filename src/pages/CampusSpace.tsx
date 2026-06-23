@@ -3,7 +3,6 @@ import { submitInquiry } from '../firebase/firestore'
 import { useAuth } from '../context/AuthContext'
 import ProtectedAction from '../components/ProtectedAction'
 
-// ── Animated counter ──────────────────────────────────────────────────────────
 function useCountUp(target: number, duration = 1800, start = false) {
   const [value, setValue] = useState(0)
   useEffect(() => {
@@ -21,7 +20,6 @@ function useCountUp(target: number, duration = 1800, start = false) {
   return value
 }
 
-// ── Scroll-reveal ─────────────────────────────────────────────────────────────
 function useInView(threshold = 0.15) {
   const ref = useRef<HTMLDivElement>(null)
   const [inView, setInView] = useState(false)
@@ -36,19 +34,16 @@ function useInView(threshold = 0.15) {
   return { ref, inView }
 }
 
-// ── Property stats card (replaces the layout schematic) ──────────────────────
 function PropertyStatsCard() {
   const { ref, inView } = useInView(0.2)
-  const hubs     = useCountUp(48,  1600, inView)
+  const hubs     = useCountUp(48,    1600, inView)
   const students = useCountUp(12400, 2000, inView)
   const sqft     = useCountUp(84000, 1800, inView)
-  const payout   = useCountUp(2800, 1600, inView)
+  const payout   = useCountUp(2800,  1600, inView)
 
   return (
     <div ref={ref} className="w-full lg:w-[500px] shrink-0 bg-[#185FA5] border-t-4 lg:border-t-0 lg:border-l-4 border-black flex items-center justify-center p-8 md:p-12">
       <div className="w-full bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
-
-        {/* Card header */}
         <div className="bg-black text-white px-5 py-3 flex justify-between items-center">
           <span className="text-xs font-black uppercase tracking-widest">Hub Performance</span>
           <div className="flex items-center gap-1.5">
@@ -56,28 +51,22 @@ function PropertyStatsCard() {
             <span className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Live</span>
           </div>
         </div>
-
-        {/* 2×2 stat grid */}
         <div className="grid grid-cols-2 divide-x-4 divide-y-4 divide-black border-b-4 border-black">
           {[
-            { value: hubs,     suffix: '',  label: 'Active Hubs',      bg: 'bg-white',        icon: '🏛' },
-            { value: students, suffix: '+', label: 'Students Served',  bg: 'bg-yellow-300',   icon: '🎓' },
-            { value: sqft,     suffix: '',  label: 'Sq Ft Managed',    bg: 'bg-orange-400',   icon: '📐', format: true },
-            { value: payout,   suffix: '/mo', label: 'Avg Host Payout', bg: 'bg-emerald-400', icon: '💵', dollar: true },
+            { value: hubs,     suffix: '',    label: 'Active Hubs',      bg: 'bg-white',       icon: '🏛' },
+            { value: students, suffix: '+',   label: 'Students Served',  bg: 'bg-yellow-300',  icon: '🎓' },
+            { value: sqft,     suffix: '',    label: 'Sq Ft Managed',    bg: 'bg-orange-400',  icon: '📐', format: true },
+            { value: payout,   suffix: '/mo', label: 'Avg Host Payout',  bg: 'bg-emerald-400', icon: '💵', dollar: true },
           ].map((s, i) => (
             <div key={i} className={`${s.bg} p-5 flex flex-col gap-1`}>
               <span className="text-2xl">{s.icon}</span>
               <span className="text-2xl font-black leading-none text-black">
-                {s.dollar && '$'}
-                {s.format ? s.value.toLocaleString() : s.value.toLocaleString()}
-                {s.suffix}
+                {s.dollar && '$'}{s.value.toLocaleString()}{s.suffix}
               </span>
               <span className="text-[10px] font-black uppercase tracking-wider text-black/60">{s.label}</span>
             </div>
           ))}
         </div>
-
-        {/* Earning estimate row */}
         <div className="px-5 py-4 bg-white">
           <p className="text-[10px] font-black uppercase tracking-widest text-gray-400 mb-2">Monthly Earning Estimate</p>
           <div className="flex items-center gap-2 mb-1">
@@ -85,23 +74,18 @@ function PropertyStatsCard() {
             <span className="text-xs font-black">$1,800–$4,200</span>
           </div>
           <div className="flex justify-between text-[9px] font-bold text-gray-400 uppercase tracking-wider">
-            <span>500 sq ft</span>
-            <span>2,000+ sq ft</span>
+            <span>500 sq ft</span><span>2,000+ sq ft</span>
           </div>
         </div>
-
-        {/* Footer */}
         <div className="border-t-4 border-black bg-[#185FA5] px-5 py-3 flex justify-between items-center">
           <span className="text-[9px] font-black uppercase tracking-widest text-white/70">SkillSync Host Network</span>
           <span className="text-[10px] font-black text-white">© 2026</span>
         </div>
-
       </div>
     </div>
   )
 }
 
-// ── Benefit card with reveal ──────────────────────────────────────────────────
 function BenefitCard({ text, index }: { text: string; index: number }) {
   const { ref, inView } = useInView(0.05)
   return (
@@ -129,7 +113,6 @@ const BENEFITS = [
   'Positive press & local visibility',
 ]
 
-// ── Main component ────────────────────────────────────────────────────────────
 export default function CampusSpace() {
   const { user } = useAuth()
   const [name, setName]       = useState('')
@@ -170,15 +153,11 @@ export default function CampusSpace() {
       {/* ── HERO ── */}
       <section className="w-full border-b-4 border-black">
         <div className="w-full flex flex-col lg:flex-row">
-
-          {/* Brand colour sidebar */}
           <div className="hidden lg:grid grid-cols-2 w-32 shrink-0 border-r-4 border-black bg-white">
             {['bg-white','bg-yellow-400','bg-orange-500','bg-blue-600','bg-white','bg-white','bg-yellow-400','bg-blue-600'].map((c,i) => (
               <div key={i} className={`${c} border-r-4 border-b-4 border-black aspect-square last:border-b-0`} />
             ))}
           </div>
-
-          {/* Headline */}
           <div className="flex-1 p-8 md:p-16 lg:p-24 border-b-4 lg:border-b-0 lg:border-r-4 border-black flex flex-col justify-center bg-white">
             <span className="inline-block bg-emerald-400 text-black text-xs font-black uppercase px-3 py-1 mb-6 border-2 border-black w-fit">
               For Landlords & Campus Partners
@@ -196,8 +175,6 @@ export default function CampusSpace() {
               List Your Space →
             </a>
           </div>
-
-          {/* ── REPLACED: Property stats card ── */}
           <PropertyStatsCard />
         </div>
       </section>
@@ -229,8 +206,8 @@ export default function CampusSpace() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y-4 md:divide-y-0 md:divide-x-4 divide-black">
           {[
-            { step: '01', emoji: '📝', bg: 'bg-yellow-300', hover: 'hover:bg-yellow-50/50', title: 'Apply Online', desc: 'Submit your property details. We review and respond within 5 business days.' },
-            { step: '02', emoji: '⚙️', bg: 'bg-orange-400', hover: 'hover:bg-orange-50/50', title: 'We Handle Setup', desc: 'SkillSync furnishes, brands, and manages the hub. You just provide the space.' },
+            { step: '01', emoji: '📝', bg: 'bg-yellow-300', hover: 'hover:bg-yellow-50/50', title: 'Apply Online',     desc: 'Submit your property details. We review and respond within 5 business days.' },
+            { step: '02', emoji: '⚙️', bg: 'bg-orange-400', hover: 'hover:bg-orange-50/50', title: 'We Handle Setup',  desc: 'SkillSync furnishes, brands, and manages the hub. You just provide the space.' },
             { step: '03', emoji: '💰', bg: 'bg-blue-500',   hover: 'hover:bg-blue-50/50',   title: 'Earn Every Month', desc: 'Consistent monthly payments at competitive market rates, auto-renewed annually.' },
           ].map(s => (
             <div key={s.step} className={`p-8 flex flex-col bg-white ${s.hover} transition-colors group`}>
@@ -278,12 +255,43 @@ export default function CampusSpace() {
       </section>
 
       {/* ── INQUIRY FORM ── */}
-      <section id="inquiry" className="w-full bg-white border-b-4 border-black py-20 px-4">
-        <div className="max-w-xl mx-auto">
-          <div className="bg-white border-4 border-black shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] p-8 md:p-12">
-            <h2 className="text-2xl font-black uppercase tracking-tight text-black mb-8 text-center border-b-4 border-black pb-4">
-              Bring A SkillSync Campus Hub To Your Property
+      <section id="inquiry" className="w-full border-b-4 border-black">
+        <div className="w-full flex flex-col lg:flex-row min-h-[600px]">
+
+          {/* Left accent column — blue */}
+          <div className="hidden lg:flex flex-col w-[220px] shrink-0 border-r-4 border-black bg-[#185FA5]">
+            <div className="flex-1 flex flex-col justify-between p-6">
+              <div>
+                <p className="text-white font-black uppercase tracking-widest text-xs mb-8">Submit Your Space</p>
+                <div className="space-y-3">
+                  {['Name', 'Email', 'Address', 'Sq Ft'].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <div className={`w-6 h-6 border-2 border-white flex items-center justify-center text-[10px] font-black text-white ${i === 0 ? 'bg-white !text-[#185FA5]' : ''}`}>
+                        {i + 1}
+                      </div>
+                      <span className="text-white/70 text-xs font-bold uppercase tracking-wider">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Decorative blocks */}
+              <div className="grid grid-cols-2 gap-2 mt-8">
+                <div className="aspect-square bg-yellow-400 border-2 border-black" />
+                <div className="aspect-square bg-orange-500 border-2 border-black" />
+                <div className="aspect-square border-2 border-white/30" />
+                <div className="aspect-square bg-white/10 border-2 border-white/30" />
+              </div>
+            </div>
+          </div>
+
+          {/* Form center */}
+          <div className="flex-1 bg-white p-8 md:p-16 flex flex-col justify-center border-r-4 border-black">
+            <h2 className="text-2xl md:text-3xl font-black uppercase tracking-tight text-black mb-2">
+              Bring A SkillSync Hub To Your Property
             </h2>
+            <p className="text-gray-500 text-sm font-medium mb-10 border-b-4 border-black pb-6">
+              Fill in your details and we'll get back to you within 5 business days.
+            </p>
 
             {success ? (
               <div className="text-center py-8">
@@ -300,10 +308,10 @@ export default function CampusSpace() {
               <ProtectedAction>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {[
-                    { label: 'Name', value: name, onChange: setName, placeholder: 'Your full name', type: 'text' },
-                    { label: 'Email', value: email, onChange: setEmail, placeholder: 'name@example.com', type: 'email' },
-                    { label: 'Property Address', value: address, onChange: setAddress, placeholder: 'Street, City, State, ZIP', type: 'text' },
-                    { label: 'Approximate sq ft', value: sqft, onChange: setSqft, placeholder: 'e.g. 2500', type: 'number' },
+                    { label: 'Name',                value: name,    onChange: setName,    placeholder: 'Your full name',            type: 'text'   },
+                    { label: 'Email',               value: email,   onChange: setEmail,   placeholder: 'name@example.com',          type: 'email'  },
+                    { label: 'Property Address',    value: address, onChange: setAddress, placeholder: 'Street, City, State, ZIP',  type: 'text'   },
+                    { label: 'Approximate Sq Ft',   value: sqft,    onChange: setSqft,    placeholder: 'e.g. 2500',                 type: 'number' },
                   ].map(f => (
                     <div key={f.label}>
                       <label className="block text-xs font-black uppercase tracking-wider text-black mb-2">{f.label}</label>
@@ -313,7 +321,7 @@ export default function CampusSpace() {
                         value={f.value}
                         onChange={e => f.onChange(e.target.value)}
                         placeholder={f.placeholder}
-                        className="w-full px-4 py-3 border-4 border-black font-semibold text-sm outline-none bg-white focus:bg-yellow-50 focus:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all"
+                        className="w-full px-4 py-3 border-4 border-black font-semibold text-sm outline-none bg-white focus:bg-yellow-50 transition-all"
                       />
                     </div>
                   ))}
@@ -335,6 +343,23 @@ export default function CampusSpace() {
               </ProtectedAction>
             )}
           </div>
+
+          {/* Right accent column — orange + yellow */}
+          <div className="hidden lg:flex flex-col w-[220px] shrink-0 border-l-0">
+            <div className="flex-1 bg-orange-500 border-b-4 border-black flex flex-col justify-end p-6">
+              <p className="text-4xl font-black text-white leading-none">$1.8k</p>
+              <p className="text-xs font-black uppercase tracking-widest text-white/70 mt-1">Min monthly</p>
+            </div>
+            <div className="flex-1 bg-yellow-400 border-b-4 border-black flex flex-col justify-end p-6">
+              <p className="text-4xl font-black text-black leading-none">$4.2k</p>
+              <p className="text-xs font-black uppercase tracking-widest text-black/60 mt-1">Max monthly</p>
+            </div>
+            <div className="flex-1 bg-black flex flex-col justify-end p-6">
+              <p className="text-4xl font-black text-white leading-none">12mo</p>
+              <p className="text-xs font-black uppercase tracking-widest text-white/50 mt-1">Min lease</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
