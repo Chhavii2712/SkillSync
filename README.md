@@ -1,5 +1,3 @@
-<img width="1898" height="623" alt="image" src="https://github.com/user-attachments/assets/a6594f2d-adf0-4aa6-a01d-646295c94491" />
-
 # ⚡ SkillSync
 ### Peer Learning, Reimagined.
 
