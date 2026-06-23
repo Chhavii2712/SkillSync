@@ -1,4 +1,4 @@
-<div align="center">
+<img width="1918" height="921" alt="image" src="https://github.com/user-attachments/assets/71a4edca-2398-438d-9d48-21fd70ba8f5c" /><div align="center">
 
 # ⚡ SkillSync
 ### Peer Learning, Reimagined.
@@ -53,19 +53,24 @@ No money. No middlemen. Just students helping students — organized into real c
 ## 📸 Screenshots
 
 ### Home Page
-![Home Page](screenshots/home.png)
+![Home Page]<img width="1918" height="921" alt="image" src="https://github.com/user-attachments/assets/4952a15b-8ca9-4126-a435-d19677820830" />
+
 
 ### Find a Hub
-![Find a Hub](screenshots/find-hub.png)
+![Find a Hub]<img width="1918" height="907" alt="image" src="https://github.com/user-attachments/assets/0d78c627-cb89-47f1-a591-39472d8373a4" />
+
 
 ### List Your Space
-![List Your Space](screenshots/list-space.png)
+![List Your Space]<img width="1918" height="903" alt="image" src="https://github.com/user-attachments/assets/b3059795-cc03-4682-84fe-89a6a5cc948a" />
+
 
 ### About
-![About](screenshots/about.png)
+![About]<img width="1900" height="903" alt="image" src="https://github.com/user-attachments/assets/11620722-1114-4d23-9c3e-6ccc1b0fba39" />
+
 
 ### Careers
-![Careers](screenshots/careers.png)
+![Careers]<img width="1917" height="902" alt="image" src="https://github.com/user-attachments/assets/ff54dfd0-77ed-4965-bcf4-aa011856fa77" />
+
 
 ---
 
