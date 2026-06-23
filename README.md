@@ -1,3 +1,5 @@
+<div align="center">
+
 # ⚡ SkillSync
 ### Peer Learning, Reimagined.
 
